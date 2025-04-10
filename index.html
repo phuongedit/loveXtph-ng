@@ -23,7 +23,7 @@
     }
 
     #lyrics div {
-  font-size: clamp(16px, 3.5vw, 28px); /* Giới hạn min/max để ổn định */
+  font-size: clamp(16px, 3.5vw, 28px); 
   font-weight: bold;
   text-shadow: 2px 2px 6px black;
   padding: 4px 0;
@@ -82,19 +82,13 @@
   </style>
 </head>
 <body>
-
-  <!-- Lời bài hát -->
   <div id="lyrics">
     <div id="line1"></div>
     <div id="line2"></div>
   </div>
-
-  <!-- Trái tim -->
   <div id="iframe-container">
-    <iframe id="heart-frame" src="Heart1.html"></iframe>
+    <iframe id="heart-frame" src="heart1.html"></iframe>
   </div>
-
-  <!-- Nút chọn trang trái tim -->
   <div id="tab-buttons">
     <button onclick="switchHeart('heart1.html')">Heart 1</button>
     <button onclick="switchHeart('heart2.html')">Heart 2</button>
@@ -107,8 +101,6 @@
     <button onclick="switchHeart('heart9.html')">Heart 9</button>
     <button onclick="switchHeart('heart10.html')">Heart 10</button>
   </div>
-
-  <!-- Nhạc nền -->
   <audio id="audio" autoplay>
     <source src="nhacheart.mp3" type="audio/mpeg" />
     Trình duyệt không hỗ trợ audio.
@@ -193,8 +185,6 @@
     function switchHeart(url) {
       document.getElementById('heart-frame').src = url;
     }
-
-    // Cho mobile – người dùng chạm mới phát nhạc
     document.body.addEventListener('click', () => {
       if (audio.paused) audio.play();
     }, { once: true });
