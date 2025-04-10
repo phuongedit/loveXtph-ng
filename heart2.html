@@ -7,87 +7,62 @@
   <title>Code Heart 02</title>
   <style>
     html,
-body {
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  background: rgba(0, 0, 0, 0.851);
-  overflow: hidden;
-}
-
-canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #000000;
-}
-
-.box {
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#pinkboard {
-  position: relative;
-  margin: auto;
-  width: 750px;
-  height: 750px;
-  animation: animate 1.2s infinite;
-}
-
-@media (max-width: 768px) {
-  #pinkboard {
-    width: 90vw;
-    height: 90vw;
-  }
-}
-
-#pinkboard:before,
-#pinkboard:after {
-  content: '';
-  position: absolute;
-  color: #ff98aa;
-  width: 100px;
-  height: 160px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-}
-
-#pinkboard:before {
-  left: 100px;
-  transform: rotate(-45deg);
-  transform-origin: 0 100%;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-              0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-#pinkboard:after {
-  left: 0;
-  transform: rotate(45deg);
-  transform-origin: 100% 100%;
-}
-
-@keyframes animate {
-  0% { transform: scale(1); }
-  30% { transform: scale(.8); }
-  60% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: rgba(0, 0, 0, 0.851);
+      overflow: hidden;
+    }
+  
+    canvas {
+      position: absolute;
+      width: 110vw;
+      height: 110vh;
+      top: -5vh;
+      left: -5vw;
+    }
+  
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000000;
+    }
+  
+    .box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    #pinkboard {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      animation: animate 1.2s infinite;
+    }
+  
+    @keyframes animate {
+      0% {
+        transform: scale(1);
+      }
+      30% {
+        transform: scale(0.8);
+      }
+      60% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
   </style>
+  
 </head>
 
 <body>
