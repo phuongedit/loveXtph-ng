@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trái tim X Tphương</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    #lyrics {
+      position: absolute;
+      top: 5%;
+      width: 100%;
+      text-align: center;
+      z-index: 1001;
+    }
+
+    #lyrics div {
+  font-size: clamp(16px, 3.5vw, 28px); /* Giới hạn min/max để ổn định */
+  font-weight: bold;
+  text-shadow: 2px 2px 6px black;
+  padding: 4px 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+
+    #iframe-container {
+      position: absolute;
+      top: 25%;
+      bottom: 60px;
+      left: 0;
+      width: 100%;
+      z-index: 500;
+    }
+
+    #heart-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #tab-buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1002;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 6px 0;
+    }
+
+    #tab-buttons button {
+      margin: 4px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background-color: #f06292;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    #tab-buttons button:hover {
+      background-color: #ec407a;
+    }
+
+    #audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lời bài hát -->
+  <div id="lyrics">
+    <div id="line1"></div>
+    <div id="line2"></div>
+  </div>
+
+  <!-- Trái tim -->
+  <div id="iframe-container">
+    <iframe id="heart-frame" src="Heart1.html"></iframe>
+  </div>
+
+  <!-- Nút chọn trang trái tim -->
+  <div id="tab-buttons">
+    <button onclick="switchHeart('heart1.html')">Heart 1</button>
+    <button onclick="switchHeart('heart2.html')">Heart 2</button>
+    <button onclick="switchHeart('heart3.html')">Heart 3</button>
+    <button onclick="switchHeart('heart4.html')">Heart 4</button>
+    <button onclick="switchHeart('heart5.html')">Heart 5</button>
+    <button onclick="switchHeart('heart6.html')">Heart 6</button>
+    <button onclick="switchHeart('heart7.html')">Heart 7</button>
+    <button onclick="switchHeart('heart8.html')">Heart 8</button>
+    <button onclick="switchHeart('heart9.html')">Heart 9</button>
+    <button onclick="switchHeart('heart10.html')">Heart 10</button>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="audio" autoplay>
+    <source src="nhacheart.mp3" type="audio/mpeg" />
+    Trình duyệt không hỗ trợ audio.
+  </audio>
+
+  <script>
+   const lyrics = [
+  { time: 6.0, vi: "Vì anh em dùng tiền bạc tích lũy nửa năm", zh: "为你 我用了半年的积蓄" },
+  { time: 15.0, vi: "Vượt qua đại dương để đến gặp anh", zh: "飘洋过海的来看你" },
+  { time: 23.5, vi: "Vì lần gặp gỡ này", zh: "为了这次相聚" },
+  { time: 29.0, vi: "Ngay cả nhịp thở khi gặp mặt em cũng phải luyện tập rất nhiều lần", zh: "我连见面时的呼吸 都曾反复练习" },
+  { time: 39.0, vi: "Trước giờ ngôn ngữ chưa từng biểu đạt được", zh: "言语从来没能 将我的情意" },
+  { time: 45.0, vi: "Một phần nghìn chân tình của em", zh: "表达千万分之一" },
+  { time: 50.5, vi: "Vì nỗi tiếc nuối ấy", zh: "为了这个遗憾" },
+  { time: 56.0, vi: "Trong đêm tối em cứ nghĩ mãi nghĩ mãi", zh: "我在夜里想了又想 不肯睡去" },
+  { time: 66.5, vi: "Kí ức có thể chậm rãi tích lũy", zh: "记忆它总是慢慢的累积" },
+  { time: 72.0, vi: "Trong tim em chẳng thể xóa nhòa", zh: "在我心中无法抹去" },
+  { time: 77.0, vi: "Vì lời hứa của anh", zh: "为了你的承诺" },
+  { time: 81.5, vi: "Trong lúc em tuyệt vọng nhất", zh: "我在最绝望的时候" },
+  { time: 86.5, vi: "Cũng kìm nén không rơi lệ", zh: "都忍着不哭泣" },
+  { time: 91.5, vi: "Ở thành phố xa lạ", zh: "陌生的城市啊" },
+  { time: 94.5, vi: "Nơi góc nhỏ quen thuộc", zh: "熟悉的角落里" },
+  { time: 97.5, vi: "Đã từng an ủi lẫn nhau ,đã từng ôm nhau than thở", zh: "也曾彼此安慰 也曾相拥叹息" },
+  { time: 106.0, vi: "Không quan tâm sẽ phải đối mặt với kết cục ra sao?", zh: "不管将会面对 什么样的结局" },
+  { time: 112.0, vi: "Ở nơi gió cát mịt mù", zh: "在漫天风沙里" },
+  { time: 117.0, vi: "Nhìn bóng anh đi xa", zh: "望着你远去" },
+  { time: 122.0, vi: "Em đau khổ đến chẳng thể kìm nén", zh: "我竟悲伤得不能自己" },
+  { time: 129.0, vi: "Mong sao được tiễn anh ngàn dặm", zh: "多盼能送君千里" },
+  { time: 135.5, vi: "Cho đến cùng trời cuối đất", zh: "直到山穷水尽" },
+  { time: 141.5, vi: "Cả đời cùng anh gắn bó…", zh: "一生和你相依" },
+  { time: 151.0, vi: "Ở thành phố xa lạ", zh: "陌生的城市啊" },
+  { time: 154.0, vi: "Nơi góc nhỏ quen thuộc", zh: "熟悉的角落里" },
+  { time: 157.0, vi: "Đã từng an ủi lẫn nhau ,đã từng ôm nhau than thở", zh: "也曾彼此安慰 也曾相拥叹息" },
+  { time: 165.0, vi: "Không quan tâm sẽ phải đối mặt với kết cục ra sao?", zh: "不管将会面对 什么样的结局" },
+  { time: 171.5, vi: "Ở nơi gió cát mịt mù", zh: "在漫天风沙里" },
+  { time: 176.5, vi: "Nhìn bóng anh đi xa", zh: "望着你远去" },
+  { time: 181.5, vi: "Em đau khổ đến chẳng thể kìm nén", zh: "我竟悲伤得不能自己" },
+  { time: 188.0, vi: "Mong sao được tiễn anh ngàn dặm", zh: "多盼能送君千里" },
+  { time: 194.0, vi: "Cho đến cùng trời cuối đất", zh: "直到山穷水尽" },
+  { time: 200.0, vi: "Cả đời cùng anh gắn bó…", zh: "一生和你相依" },
+  { time: 208.0, vi: "Mong sao được tiễn anh ngàn dặm", zh: "多盼能送君千里" },
+  { time: 214.0, vi: "Cho đến cùng trời cuối đất", zh: "直到山穷水尽" },
+  { time: 219.5, vi: "Cả đời cùng anh gắn bó…", zh: "一生和你相依" }
+];
+
+    const audio = document.getElementById("audio");
+    const line1 = document.getElementById("line1");
+    const line2 = document.getElementById("line2");
+
+    let currentIndex = -1;
+
+    function showLyrics(index) {
+      line1.style.opacity = 0;
+      line2.style.opacity = 0;
+
+      setTimeout(() => {
+        line1.textContent = lyrics[index].vi;
+        line2.textContent = lyrics[index].zh;
+        line1.style.opacity = 1;
+        line2.style.opacity = 1;
+      }, 200);
+    }
+
+    function updateLyrics() {
+      const currentTime = audio.currentTime;
+      for (let i = lyrics.length - 1; i >= 0; i--) {
+        if (currentTime >= lyrics[i].time) {
+          if (currentIndex !== i) {
+            currentIndex = i;
+            showLyrics(i);
+          }
+          break;
+        }
+      }
+      requestAnimationFrame(updateLyrics);
+    }
+
+    audio.addEventListener("play", () => {
+      requestAnimationFrame(updateLyrics);
+    });
+
+    function switchHeart(url) {
+      document.getElementById('heart-frame').src = url;
+    }
+
+    // Cho mobile – người dùng chạm mới phát nhạc
+    document.body.addEventListener('click', () => {
+      if (audio.paused) audio.play();
+    }, { once: true });
+  </script>
+
+</body>
+</html>
